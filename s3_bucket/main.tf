@@ -2,16 +2,8 @@
 resource "aws_s3_bucket" "this" {
   #checkov:skip=CKV_AWS_144:Not needed for testing
   #checkov:skip=CKV_AWS_18:Not needed for testing
-  bucket_prefix = "slynch1223-tf-"
+  bucket_prefix = var.bucket_name
   force_destroy = true
-}
-
-resource "aws_s3_bucket_versioning" "this" {
-  bucket = aws_s3_bucket.this.id
-
-  versioning_configuration {
-    status = "Enabled"
-  }
 }
 
 resource "aws_s3_bucket_public_access_block" "this" {
@@ -37,5 +29,13 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "this" {
       kms_master_key_id = aws_kms_key.this.arn
       sse_algorithm     = "aws:kms"
     }
+  }
+}
+
+resource "aws_s3_bucket_versioning" "this" {
+  bucket = aws_s3_bucket.this.id
+
+  versioning_configuration {
+    status = "Enabled"
   }
 }
