@@ -1,9 +1,9 @@
-# variable "bucket_name" {
-#   description = "Please specify a valid S3 Bucket Name that is globally unique"
-#   type        = string
+variable "cidr_block" {
+  description = "Please specify a valid cidr_block"
+  type        = string
 
-#   validation {
-#     condition     = can(regex("^[a-z0-9.-]{3,63}$", var.bucket_name))
-#     error_message = "Must be a valid S3 Bucket Name (^[a-z0-9.-]{3,63}$)"
-#   }
-# }
+  validation {
+    condition     = can(regex("^[0-9.]{3,63}$", var.cidr_block))
+    error_message = "Must be a valid S3 cidr_block (^[0-9.]{3,63}$)"
+  }
+}
